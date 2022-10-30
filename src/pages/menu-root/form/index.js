@@ -8,6 +8,17 @@ import Select from '@mui/material/Select';
 
 const MenuRoot = () => {
     const router = useNavigate();
+    const style = {
+        buttonStyle: {
+            marginTop: '10px',
+            padding: '14px',
+            backgroundColor: '#DD5353',
+            color: 'white',
+            borderRadius: '14px',
+            text: 'center',
+            width: '100%'
+        }
+    };
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -17,7 +28,6 @@ const MenuRoot = () => {
                         alamat: '',
                         hp: '',
                         ktp: '',
-                        dealer: '',
                         kategoriDealer: '',
                         tipeProduk: '',
                         harga: '',
@@ -30,7 +40,6 @@ const MenuRoot = () => {
                         alamat: Yup.string().max(255).required('Alamat Tidak boleh kosong'),
                         ktp: Yup.string().max(255).required('No KTP Tidak boleh kosong'),
                         hp: Yup.string().max(255).required('No HP Tidak boleh kosong'),
-                        dealer: Yup.string().max(255).required('Dealer Tidak boleh kosong'),
                         kategoriDealer: Yup.string().max(255).required('Kategori Dealer Tidak boleh kosong'),
                         tipeProduk: Yup.string().max(255).required('Tipe Produk Tidak boleh kosong'),
                         harga: Yup.string().max(255).required('Harga Tidak boleh kosong'),
@@ -50,7 +59,7 @@ const MenuRoot = () => {
                 >
                     {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                         <form noValidate onSubmit={handleSubmit}>
-                            <Grid container spacing={3} padding={10}>
+                            <Grid container spacing={3} paddingTop={3} paddingRight={4} paddingLeft={4}>
                                 <Grid item xs={12}>
                                     <h5>Data Pengguna</h5>
                                     <Stack spacing={1}>
@@ -134,30 +143,11 @@ const MenuRoot = () => {
                                 <Grid item xs={12}>
                                     <h5>Data Penjualan Produk</h5>
                                     <Stack spacing={1}>
-                                        <InputLabel htmlFor="dealer-login">Nama Dealer</InputLabel>
-                                        <OutlinedInput
-                                            id="dealer-login"
-                                            type="text"
-                                            value={values.dealer}
-                                            name="dealer"
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            placeholder="Masukan Nama"
-                                            fullWidth
-                                            error={Boolean(touched.dealer && errors.dealer)}
-                                        />
-                                        {touched.dealer && errors.dealer && (
-                                            <FormHelperText error id="standard-weight-helper-text-email-login">
-                                                {errors.dealer}
-                                            </FormHelperText>
-                                        )}
-                                    </Stack>
-                                    <Stack spacing={1}>
                                         <InputLabel id="demo-simple-select-label">Kategori Dealer</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={values.kategoriDealer}
+                                            value={values.kategoriDealer === '' ? 10 : values.kategoriDealer}
                                             label="Kategori Deale"
                                             onChange={handleChange}
                                         >
@@ -176,7 +166,7 @@ const MenuRoot = () => {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={values.tipeProduk}
+                                            value={values.tipeProduk === '' ? 10 : values.tipeProduk}
                                             name="tipeProduk"
                                             label="Tipe Produk"
                                             onChange={handleChange}
@@ -200,7 +190,7 @@ const MenuRoot = () => {
                                             name="harga"
                                             onBlur={handleBlur}
                                             onChange={handleChange}
-                                            placeholder="Masukan Nomor KTP"
+                                            placeholder="Masukan Harga Produk"
                                             fullWidth
                                             error={Boolean(touched.harga && errors.harga)}
                                         />
@@ -274,17 +264,9 @@ const MenuRoot = () => {
                                         <FormHelperText error>{errors.submit}</FormHelperText>
                                     </Grid>
                                 )}
-                                <Grid item xs={2}>
-                                    <Button
-                                        disableElevation
-                                        disabled={isSubmitting}
-                                        fullWidth
-                                        size="large"
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        submit
+                                <Grid item xs={12}>
+                                    <Button style={style.buttonStyle} type="submit">
+                                        Submit
                                     </Button>
                                 </Grid>
                             </Grid>
